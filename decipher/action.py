@@ -24,10 +24,10 @@ def transcribe(video_in, output_dir, model, language, task, subs):
     gpu = torch.cuda.is_available()
     model = whisper.load_model(model)
     result = model.transcribe(audio_file, task=task, language=language, verbose=True, fp16=gpu)
-    writer = get_writer("srt", ".")
+    writer = get_writer("txt", ".")
 
     writer(result, video_in.stem)
-    srt_file = video_in.stem + ".srt"
+    srt_file = video_in.stem + ".txt"
 
     assert os.path.exists(srt_file), f"SRT file not generated?"
     if subs:
